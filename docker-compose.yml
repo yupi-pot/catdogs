@@ -1,0 +1,62 @@
+services:
+  # PostgreSQL база данных
+  postgres:
+    image: postgres:16-alpine
+    container_name: catdogs_db
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-catdogs}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - catdogs_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Express API сервер
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: catdogs_server
+    environment:
+      NODE_ENV: production
+      PORT: 5001
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@postgres:5432/${DB_NAME:-catdogs}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "5001:5001"
+    networks:
+      - catdogs_network
+    restart: unless-stopped
+
+  # React клиент с Nginx
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: catdogs_client
+    depends_on:
+      - server
+    ports:
+      - "80:80"
+    networks:
+      - catdogs_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  catdogs_network:
+    driver: bridge
+
+

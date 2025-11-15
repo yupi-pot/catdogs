@@ -1,0 +1,122 @@
+.typehere-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.typehere-input {
+  padding: 15px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: 'Nunito', sans-serif;
+}
+
+.typehere-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.typehere-input:focus {
+  border-color: rgba(255, 107, 157, 0.8);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 0 20px rgba(255, 107, 157, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: scale(1.02);
+}
+
+.typehere-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.typehere-button {
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Nunito', sans-serif;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.typehere-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.5s, height 0.5s;
+}
+
+.typehere-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.typehere-button-primary {
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  color: #fff;
+  box-shadow: 
+    0 5px 15px rgba(255, 107, 157, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.typehere-button-primary:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 
+    0 8px 25px rgba(255, 107, 157, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.typehere-button-secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.typehere-button-secondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.typehere-button:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
